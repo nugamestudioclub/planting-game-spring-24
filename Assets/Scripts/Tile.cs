@@ -5,7 +5,7 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     #region vars
-    // State of tile
+    // >>State of tile<<
     public enum TileState
     {
         Default,
@@ -13,16 +13,15 @@ public class Tile : MonoBehaviour
         Planted
     }
 
-    // Check if tile has been loaded
+    // >>Check if tile has been loaded<<
     bool active = false;
 
-    [SerializeField]
-    TileState currentState;
+    public TileState currentState;
 
-    // !!TBD until nutrition system is complete pretend it is always at 1!!
-    // Stored nutrition levels
-    [SerializeField]
-    float nutritionLevels = 1;
+    // >>Nutrient Levels<<
+    public float maxNutr;
+    // Actual value 
+    public float nutritionLevels = 1;
 
     // Surrounding tiles
     public Tile leftDownTile;
@@ -35,8 +34,9 @@ public class Tile : MonoBehaviour
     public Tile downTile;
     #endregion
     // Fills in information of tile and activates it
-    public void activate(TileState setState, Tile LD, Tile L, Tile LU, Tile U, Tile RU, Tile R, Tile RD, Tile D)
+    public void activate(float maxNutrInsert, TileState setState, Tile LD, Tile L, Tile LU, Tile U, Tile RU, Tile R, Tile RD, Tile D)
     {
+        maxNutr = maxNutrInsert;
         active = true;
         currentState = setState;
         leftDownTile = LD;
@@ -53,6 +53,33 @@ public class Tile : MonoBehaviour
     {
         
     }
+    public float baseNutrientCalculation()
+    {
+        if(currentState == TileState.Submerged)
+        {
+            return maxNutr;
+        }
+        else
+        {
+            int subOrMissingEdge = 0;
+            void addOnTileSubOrMissing(Tile givenTile)
+            {
+                if (givenTile == null || givenTile.currentState == TileState.Submerged)
+                {
+                    subOrMissingEdge += 1;
+                }
+            }
+            addOnTileSubOrMissing(leftDownTile);
+            addOnTileSubOrMissing(leftTile);
+            addOnTileSubOrMissing(leftUpTile);
+            addOnTileSubOrMissing(upTile);
+            addOnTileSubOrMissing(rightUpTile);
+            addOnTileSubOrMissing(rightTile);
+            addOnTileSubOrMissing(rightDownTile);
+            addOnTileSubOrMissing(downTile);
+            return  maxNutr * ((float)subOrMissingEdge / 8);
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -60,7 +87,7 @@ public class Tile : MonoBehaviour
         // DEBUG CODE
         if (currentState == TileState.Default)
         {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow * (nutritionLevels / maxNutr);
         }
         if (currentState == TileState.Planted)
         {
