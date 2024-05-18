@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Plant : MonoBehaviour
 {
+    public void disconnect()
+    {
+
+    }
     // Start is called before the first frame update
     void Start()
     {

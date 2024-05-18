@@ -11,6 +11,14 @@ public class Tile : MonoBehaviour
     [SerializeField]
     Color fertileColor;
     SpriteRenderer cachedRender;
+    // >>Direction of wave<<
+    public enum Direction
+    {
+        L,
+        U,
+        R,
+        D
+    }
     // >>State of tile<<
     public enum TileState
     {
@@ -18,11 +26,11 @@ public class Tile : MonoBehaviour
         Submerged,
         Planted
     }
-
-    // >>Check if tile has been loaded<<
-    bool active = false;
-
     public TileState currentState;
+    // Checks if tile has been loaded
+    bool active = false;
+    GameObject plantObjectAttached;
+    Plant plantScriptAttached;
 
     // >>Nutrient Levels<<
     public float maxNutr;
@@ -58,18 +66,73 @@ public class Tile : MonoBehaviour
         rightDownTile = RD;
         downTile = D;
     }
-
+    // Attempts to submerge or recede on first non submerged block in a direction
+    public void newWaveAttempt(Direction dir, bool flood)
+    {
+        if(currentState == TileState.Submerged)
+        {
+            Tile nextTile = null;
+            // Find next tile
+            if (dir == Direction.L)
+            {
+                nextTile = leftTile;
+            }
+            if (dir == Direction.U)
+            {
+                nextTile = upTile;
+            }
+            if (dir == Direction.R)
+            {
+                nextTile = rightTile;
+            }
+            if (dir == Direction.D)
+            {
+                nextTile = downTile;
+            }
+            // Checks if next tile in dir exists
+            if (nextTile != null)
+            {
+                if (nextTile.currentState != TileState.Submerged)
+                {
+                    if (flood)
+                    {
+                        updateWave(TileState.Submerged, dir);
+                    }
+                    else
+                    {
+                        updateWave(TileState.Default, dir);
+                    }
+                }
+            }
+        }
+    }
     // Updates nutrient value and the sprite color accordingly
     public void updateNutr(float newNutrLev)
     {
         nutritionLevel = newNutrLev;
         cachedRender.color = Color.Lerp(infertileColor, fertileColor, (nutritionLevel / maxNutr));
     }
-    // Updates state and handles overlays accordingly
-    public void updateState(TileState newState)
+    // Updates state from flood and plays anim
+    public void updateWave(TileState newState, Direction dir)
     {
         currentState = newState;
+        if(newState != TileState.Submerged)
+        {
 
+        }
+        else
+        {
+
+        }
+    }
+
+    // Updates overlay from adjacent tile states
+    public void overlayUpdate()
+    {
+        if(currentState != TileState.Submerged)
+        {
+            
+        }
     }
 
     // The base nutrient calculation
