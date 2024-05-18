@@ -57,6 +57,18 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        // DEBUG CODE
+        if (currentState == TileState.Default)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.white;
+        }
+        if (currentState == TileState.Planted)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
+        }
+        if (currentState == TileState.Submerged)
+        {
+            gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
+        }
     }
 }

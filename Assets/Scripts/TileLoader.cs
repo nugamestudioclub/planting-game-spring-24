@@ -17,9 +17,9 @@ public class TileLoader : MonoBehaviour
     [SerializeField]
     int gridHeight = 10;
     [SerializeField]
-    int floodedXBand = 5;
+    int floodedXBand;
     [SerializeField]
-    int floodedYBand = 4;
+    int floodedYBand;
 
     // Representations of the grid
     [SerializeField]
@@ -63,40 +63,43 @@ public class TileLoader : MonoBehaviour
             tileScriptGrid[y] = new Tile[gridWidth];
             for(int x = 0; x < gridWidth; x++)
             {
-                Vector3 pos = new Vector3(gridStartPoint.x + gridTransXDiff * x, gridStartPoint.y + gridTransYDiff * y);
-                tileObjectGrid[y][x] = Instantiate(tilePrefab);
+                Vector3 pos = new Vector3(gridStartPoint.x + gridTransXDiff * (x - (gridWidth - 1) / (float) 2), gridStartPoint.y + gridTransYDiff  * (y - (gridHeight - 1) / (float)2));
+                tileObjectGrid[y][x] = Instantiate(tilePrefab, pos, Quaternion.identity);
                 tileScriptGrid[y][x] = tileObjectGrid[y][x].GetComponent<Tile>();
             }
         }
+        // Activates all of the tiles
         for (int y = 0; y < gridHeight; y++)
         {
             for (int x = 0; x < gridWidth; x++)
             {
-                if( x < floodedXBand || x > gridWidth - floodedXBand || y < floodedXBand || y > gridHeight - floodedYBand)
+                if( x < floodedXBand || x >= gridWidth - floodedXBand || y < floodedYBand || y >= gridHeight - floodedYBand)
                 {
                     tileScriptGrid[y][x].activate(
                         Tile.TileState.Submerged,
-                        tileGet(y - 1, x - 1),
-                        tileGet(y, x - 1),
-                        tileGet(y + 1, x - 1),
-                        tileGet(y + 1, x),
-                        tileGet(y + 1, x + 1),
-                        tileGet(y, x + 1),
-                        tileGet(y - 1, x + 1),
-                        tileGet(y - 1, x));
+                        tileGet(x - 1, y - 1),
+                        tileGet(x - 1, y),
+                        tileGet(x - 1, y + 1),
+                        tileGet(x, y + 1),
+                        tileGet(x + 1, y + 1),
+                        tileGet(x + 1, y),
+                        tileGet(x + 1, y - 1),
+                        tileGet(x, y - 1)
+                        );
                 }
                 else
                 {
                     tileScriptGrid[y][x].activate(
                         Tile.TileState.Default,
-                        tileGet(y - 1, x - 1),
-                        tileGet(y, x - 1),
-                        tileGet(y + 1, x - 1),
-                        tileGet(y + 1, x),
-                        tileGet(y + 1, x + 1),
-                        tileGet(y, x + 1),
-                        tileGet(y - 1, x + 1),
-                        tileGet(y - 1, x));
+                        tileGet(x - 1, y - 1),
+                        tileGet(x - 1, y),
+                        tileGet(x - 1, y + 1),
+                        tileGet(x, y + 1),
+                        tileGet(x + 1, y + 1),
+                        tileGet(x + 1, y),
+                        tileGet(x + 1, y - 1),
+                        tileGet(x, y - 1)
+                        );
                 }
             }
         }
