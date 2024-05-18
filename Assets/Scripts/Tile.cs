@@ -5,6 +5,12 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     #region vars
+    // >>Sprite Handlers<<
+    [SerializeField]
+    Color infertileColor;
+    [SerializeField]
+    Color fertileColor;
+    SpriteRenderer cachedRender;
     // >>State of tile<<
     public enum TileState
     {
@@ -20,8 +26,8 @@ public class Tile : MonoBehaviour
 
     // >>Nutrient Levels<<
     public float maxNutr;
-    // Actual value 
-    public float nutritionLevels = 1;
+    // Please only update this through updateNutritionVal func to update sprite
+    public float nutritionLevel = 1;
 
     // Surrounding tiles
     public Tile leftDownTile;
@@ -38,7 +44,11 @@ public class Tile : MonoBehaviour
     {
         maxNutr = maxNutrInsert;
         active = true;
+        // Caches renderer
+        cachedRender = gameObject.GetComponent<SpriteRenderer>();
+        // Sets current state
         currentState = setState;
+        // Sets adjacent tiles
         leftDownTile = LD;
         leftTile = L;
         leftUpTile = LU;
@@ -48,11 +58,21 @@ public class Tile : MonoBehaviour
         rightDownTile = RD;
         downTile = D;
     }
-    // Start is called before the first frame update
-    void Start()
+
+    // Updates nutrient value and the sprite color accordingly
+    public void updateNutr(float newNutrLev)
     {
-        
+        nutritionLevel = newNutrLev;
+        cachedRender.color = Color.Lerp(infertileColor, fertileColor, (nutritionLevel / maxNutr));
     }
+    // Updates state and handles overlays accordingly
+    public void updateState(TileState newState)
+    {
+        currentState = newState;
+
+    }
+
+    // The base nutrient calculation
     public float baseNutrientCalculation()
     {
         if(currentState == TileState.Submerged)
@@ -84,18 +104,5 @@ public class Tile : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // DEBUG CODE
-        if (currentState == TileState.Default)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.yellow * (nutritionLevels / maxNutr);
-        }
-        if (currentState == TileState.Planted)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.green;
-        }
-        if (currentState == TileState.Submerged)
-        {
-            gameObject.GetComponent<SpriteRenderer>().color = Color.blue;
-        }
     }
 }

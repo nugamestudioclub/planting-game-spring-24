@@ -13,15 +13,15 @@ public class TileManager : MonoBehaviour
     // >>Grid Generation<<
     // Dimensions of grid
     const int gridWidth = 15;
-    const int gridHeight = 10;
-    const int floodedXBand = 3;
-    const int floodedYBand = 2;
+    const int gridHeight = 15;
+    const int floodedXBand = 4;
+    const int floodedYBand = 4;
 
     // Representations of the grid
     const int xStartPoint = 0;
     const int yStartPoint = 0;
-    const int gridTransXDiff = 1;
-    const float gridTransYDiff = 1;
+    const float gridTransXDiff = 0.959994f;
+    const float gridTransYDiff = 0.54000003f;
 
     // >>Nutrient Generation<<
     // ________HEY SEBASTIAN__
@@ -176,7 +176,7 @@ public class TileManager : MonoBehaviour
         {
             for (int x = 0; x < gridWidth; x++)
             {
-                tileScriptGrid[y][x].nutritionLevels = smoothFloat(x, y, smoothingKernalSize, newBaseNutrVals);
+                tileScriptGrid[y][x].updateNutr(smoothFloat(x, y, smoothingKernalSize, newBaseNutrVals));
             }
         }
     }
