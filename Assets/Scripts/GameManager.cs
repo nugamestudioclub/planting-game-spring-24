@@ -110,10 +110,6 @@ public class GameManager : MonoBehaviour
             int generateChance = Random.Range(0, 100);
             willFlood = generateChance < floodChance;
         }
-        print("dir: " + dir);
-        print("generateCoords: " + generateCoord);
-        print("width: " + width);
-        print("warningTime: " + warningTime);
         tiles.sendWarning(dir, generateCoord, width, willFlood, warningTime);
         Timer.Register(warningTime, () => doFlood(dir, generateCoord, width, willFlood));
     }
