@@ -10,8 +10,15 @@ public class Tile : MonoBehaviour
     Color infertileColor;
     [SerializeField]
     Color fertileColor;
+    [SerializeField]
+    Color mouseBoxDefaultColor;
+    [SerializeField]
+    Color mouseBoxPlantedColor;
+    [SerializeField]
+    Color mouseBoxSubmergedColor;
     SpriteRenderer cachedRender;
     OceanAnim cachedAnimHandeler;
+    mouseBox cachedMouseBox;
     // >>Direction of wave<<
     public enum Direction
     {
@@ -55,10 +62,13 @@ public class Tile : MonoBehaviour
         // Caches needed components
         cachedRender = gameObject.GetComponent<SpriteRenderer>();
         cachedAnimHandeler = transform.GetChild(0).GetComponent<OceanAnim>();
+        cachedMouseBox = transform.GetChild(1).GetComponent<mouseBox>();
         // Initialize cached components
+        cachedMouseBox.init();
         cachedAnimHandeler.initState(setState == TileState.Submerged, this);
         // Sets current state
         currentState = setState;
+        updateMouseBox();
         maxNutr = maxNutrInsert;
         // Sets adjacent tiles
         leftDownTile = LD;
@@ -119,7 +129,15 @@ public class Tile : MonoBehaviour
     // Updates state from flood and plays anim
     public void updateWave(TileState newState, Direction dir)
     {
+        // Disconnects plants
+        if (currentState == TileState.Planted)
+        {
+            plantScriptAttached.disconnect();
+        }
+        // Updates state and mouse box
         currentState = newState;
+        updateMouseBox();
+        // Updates animation
         if(newState != TileState.Submerged)
         {
             cachedAnimHandeler.floodObject(dir, false);
@@ -144,6 +162,22 @@ public class Tile : MonoBehaviour
         noNullBayUpdate(upTile);
         noNullBayUpdate(rightTile);
         noNullBayUpdate(downTile);
+    }
+    // Updates mouse box color to current state
+    public void updateMouseBox()
+    {
+        if (currentState == TileState.Submerged)
+        {
+            cachedMouseBox.updateColor(mouseBoxSubmergedColor);
+        }
+        if (currentState == TileState.Planted)
+        {
+            cachedMouseBox.updateColor(mouseBoxPlantedColor);
+        }
+        if (currentState == TileState.Default)
+        {
+            cachedMouseBox.updateColor(mouseBoxDefaultColor);
+        }
     }
     // Updates overlay from adjacent tile states
     public void bayUpdate()

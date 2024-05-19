@@ -345,6 +345,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infertileColor: {r: 0.990566, g: 0.880532, b: 0.4812656, a: 1}
   fertileColor: {r: 0.7075472, g: 0.30519462, b: 0.19023673, a: 1}
+  mouseBoxDefaultColor: {r: 1, g: 1, b: 1, a: 1}
+  mouseBoxPlantedColor: {r: 0, g: 0.29803923, b: 0, a: 1}
+  mouseBoxSubmergedColor: {r: 0.8301887, g: 0.16838734, b: 0.16838734, a: 1}
   currentState: 0
   maxNutr: 0
   nutritionLevel: 1
