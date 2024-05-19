@@ -56,7 +56,7 @@ public class Tile : MonoBehaviour
         cachedRender = gameObject.GetComponent<SpriteRenderer>();
         cachedAnimHandeler = transform.GetChild(0).GetComponent<OceanAnim>();
         // Initialize cached components
-        cachedAnimHandeler.initState(setState == TileState.Submerged);
+        cachedAnimHandeler.initState(setState == TileState.Submerged, this);
         // Sets current state
         currentState = setState;
         maxNutr = maxNutrInsert;
@@ -130,12 +130,44 @@ public class Tile : MonoBehaviour
         }
     }
 
-    // Updates overlay from adjacent tile states
-    public void overlayUpdate()
+    // Updates other tiles on animation completion
+    public void animComplete()
     {
-        if(currentState != TileState.Submerged)
+        void noNullBayUpdate(Tile givenTile)
         {
-            
+            if(givenTile != null)
+            {
+                givenTile.bayUpdate();
+            }
+        }
+        noNullBayUpdate(leftTile);
+        noNullBayUpdate(upTile);
+        noNullBayUpdate(rightTile);
+        noNullBayUpdate(downTile);
+    }
+    // Updates overlay from adjacent tile states
+    public void bayUpdate()
+    {
+        if (currentState != TileState.Submerged)
+        {
+            // Submerged tiles with finished animations and edges result in a visible bay line
+            bool doesTileComply(Tile givenTile)
+            {
+                return givenTile == null || givenTile.currentState == TileState.Submerged && !givenTile.getIsInAnim();
+            }
+            cachedAnimHandeler.updateBay(
+                doesTileComply(leftTile),
+                doesTileComply(upTile),
+                doesTileComply(rightTile),
+                doesTileComply(downTile));
+        }
+        else
+        {
+            cachedAnimHandeler.updateBay(
+                false,
+                false,
+                false,
+                false);
         }
     }
 
@@ -168,6 +200,11 @@ public class Tile : MonoBehaviour
         }
     }
 
+    // Returns if oceanAnim is in middle of animation
+    public bool getIsInAnim()
+    {
+        return cachedAnimHandeler.getIsInAnim();
+    }
     // Update is called once per frame
     void Update()
     {

@@ -115,6 +115,14 @@ public class TileManager : MonoBehaviour
                 }
             }
         }
+        // Updates all of the tiles
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                tileScriptGrid[y][x].bayUpdate();
+            }
+        }
         // Updates nutrition values
         updateNutritionValues();
     }
@@ -183,6 +191,13 @@ public class TileManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        updateNutritionValues();
+        // Updates all of the tiles
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                tileScriptGrid[y][x].bayUpdate();
+            }
+        }
     }
 }
