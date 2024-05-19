@@ -24,9 +24,6 @@ public class TileManager : MonoBehaviour
     const float gridTransYDiff = 0.54000003f;
 
     // >>Nutrient Generation<<
-    // ________HEY SEBASTIAN__
-    // i think this is what linear diffusion is
-    // it seems to work mostly
     // Kernal size
     const int smoothingKernalSize = 3;
     // Nutrient amount
@@ -44,6 +41,8 @@ public class TileManager : MonoBehaviour
     Tile[][] tileScriptGrid;
     #endregion
 
+    #region functions
+    //>>General Helper Functions
     // Attempts to gather coordinate and returns null if out of bounds
     T gridGet<T>(int x, int y, T[][] grid, T outOfBoundValue)
     {
@@ -61,6 +60,8 @@ public class TileManager : MonoBehaviour
     {
         return gridGet(x, y, tileScriptGrid, null);
     }
+
+    //>>Start<<
     // Start is called before the first frame update
     void Start()
     {
@@ -126,6 +127,7 @@ public class TileManager : MonoBehaviour
         // Updates nutrition values
         updateNutritionValues();
     }
+    //>>Nutrition Gathering<<
     // Converts the distance of a location into a kernal weight
     float distToWeight(int orgX, int orgY, int newX, int newY)
     {
@@ -188,6 +190,63 @@ public class TileManager : MonoBehaviour
             }
         }
     }
+
+    //>>Waves<<
+    // Gets total non submerged land tiles in order to calculate whether to recede or 
+    public int getTotalLandTiles()
+    {
+        int landIter = 0;
+        for (int y = 0; y < gridHeight; y++)
+        {
+            for (int x = 0; x < gridWidth; x++)
+            {
+                if(tileScriptGrid[y][x].currentState != Tile.TileState.Submerged)
+                {
+                    landIter += 1;
+                }
+            }
+        }
+        return landIter;
+    }
+    // Sends a wave in a direction
+    public void sendWave(Tile.Direction dir, int coord, int width, bool flood)
+    {
+        if(dir == Tile.Direction.L)
+        {
+            for(int i = coord - width; i < coord + width; i++)
+            {
+                if (i >= 0 && i < gridHeight)
+                {
+                    tileScriptGrid[i][gridWidth - 1].newWaveAttempt(dir, flood);
+                }
+            }
+        }
+        if (dir == Tile.Direction.U)
+        {
+            for (int i = coord - width; i < coord + width; i++)
+            {
+                if (i >= 0 && i < gridWidth)
+                {
+                    tileScriptGrid[0][i].newWaveAttempt(dir, flood);
+                }
+            }
+        }
+        if (dir == Tile.Direction.R)
+        {
+            for (int i = coord - width; i < coord + width; i++)
+            {
+                if (i >= 0 && i < gridHeight)
+                {
+                    tileScriptGrid[i][0].newWaveAttempt(dir, flood);
+                }
+            }
+        }
+        if (dir == Tile.Direction.D)
+        {
+
+        }
+    }
+    //>>Update<<
     // Update is called once per frame
     void Update()
     {
@@ -200,4 +259,5 @@ public class TileManager : MonoBehaviour
             }
         }
     }
+    #endregion
 }
