@@ -11,6 +11,7 @@ public class Tile : MonoBehaviour
     [SerializeField]
     Color fertileColor;
     SpriteRenderer cachedRender;
+    OceanAnim cachedAnimHandeler;
     // >>Direction of wave<<
     public enum Direction
     {
@@ -50,12 +51,15 @@ public class Tile : MonoBehaviour
     // Fills in information of tile and activates it
     public void activate(float maxNutrInsert, TileState setState, Tile LD, Tile L, Tile LU, Tile U, Tile RU, Tile R, Tile RD, Tile D)
     {
-        maxNutr = maxNutrInsert;
         active = true;
-        // Caches renderer
+        // Caches needed components
         cachedRender = gameObject.GetComponent<SpriteRenderer>();
+        cachedAnimHandeler = transform.GetChild(0).GetComponent<OceanAnim>();
+        // Initialize cached components
+        cachedAnimHandeler.initState(setState == TileState.Submerged);
         // Sets current state
         currentState = setState;
+        maxNutr = maxNutrInsert;
         // Sets adjacent tiles
         leftDownTile = LD;
         leftTile = L;
@@ -118,11 +122,11 @@ public class Tile : MonoBehaviour
         currentState = newState;
         if(newState != TileState.Submerged)
         {
-
+            cachedAnimHandeler.floodObject(dir, false);
         }
         else
         {
-
+            cachedAnimHandeler.floodObject(dir, true);
         }
     }
 
