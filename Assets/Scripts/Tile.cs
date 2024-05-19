@@ -5,7 +5,10 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     #region vars
-    // >>Sprite Handlers<<
+    // >>Animation/Sprite Handlers<<
+    // Prefab for wave warnings
+    [SerializeField]
+    GameObject pointerPrefab;
     [SerializeField]
     Color infertileColor;
     [SerializeField]
@@ -80,6 +83,12 @@ public class Tile : MonoBehaviour
         rightDownTile = RD;
         downTile = D;
     }
+    // Warning spawn
+    public void spawnWarning(Direction dir, bool flood, float time)
+    {
+        GameObject pointer = Instantiate(pointerPrefab, transform.position, Quaternion.identity);
+        pointer.GetComponent<flashingScript>().init(dir, time, flood);
+    }
     // Attempts to submerge or recede on first non submerged block in a direction
     public void newWaveAttempt(Direction dir, bool flood)
     {
@@ -110,12 +119,16 @@ public class Tile : MonoBehaviour
                 {
                     if (flood)
                     {
-                        updateWave(TileState.Submerged, dir);
+                        nextTile.updateWave(TileState.Submerged, dir);
                     }
                     else
                     {
                         updateWave(TileState.Default, dir);
                     }
+                }
+                else
+                {
+                    nextTile.newWaveAttempt(dir, flood);
                 }
             }
         }
@@ -146,6 +159,8 @@ public class Tile : MonoBehaviour
         {
             cachedAnimHandeler.floodObject(dir, true);
         }
+        // Updates surrounding tiles
+        animComplete();
     }
 
     // Updates other tiles on animation completion
@@ -162,6 +177,7 @@ public class Tile : MonoBehaviour
         noNullBayUpdate(upTile);
         noNullBayUpdate(rightTile);
         noNullBayUpdate(downTile);
+        bayUpdate();
     }
     // Updates mouse box color to current state
     public void updateMouseBox()

@@ -10706,6 +10706,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1894902744}
   - component: {fileID: 1894902743}
+  - component: {fileID: 1894902745}
   m_Layer: 0
   m_Name: Tile Manager
   m_TagString: Untagged
@@ -10726,6 +10727,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilePrefab: {fileID: 2903574817512562934, guid: e6075b100b9554554973c4304247253a, type: 3}
+  gridWidth: 15
+  gridHeight: 15
 --- !u!4 &1894902744
 Transform:
   m_ObjectHideFlags: 0
@@ -10741,6 +10744,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894902745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894902742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 35af0e28bde35d94d882def6ff1a06be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startingFood: 10
+  foodDecrease: 5
+  tideCooldown: 2
+  width: 2
+  floodChance: 50
+  maxLand: 70
+  minLand: 30
+  warningTime: 5
+  forageCooldown: 0
+  food: 0
+  CanForage: 1
 --- !u!1 &1895136564
 GameObject:
   m_ObjectHideFlags: 0

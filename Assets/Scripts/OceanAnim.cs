@@ -105,8 +105,8 @@ public class OceanAnim : MonoBehaviour
                 animTimeLeft -= Time.deltaTime;
                 if(animTimeLeft < 0)
                 {
-                    cacheTile.animComplete();
                     inAnim = false;
+                    cacheTile.animComplete();
                 }
             }
         }

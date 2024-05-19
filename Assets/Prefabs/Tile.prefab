@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ef54d51f5ab0404089492a29176f06b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointerPrefab: {fileID: 7688022551674977430, guid: 2eae3f501f73148bdb6561f832b32b98, type: 3}
   infertileColor: {r: 0.990566, g: 0.880532, b: 0.4812656, a: 1}
   fertileColor: {r: 0.7075472, g: 0.30519462, b: 0.19023673, a: 1}
   mouseBoxDefaultColor: {r: 1, g: 1, b: 1, a: 1}

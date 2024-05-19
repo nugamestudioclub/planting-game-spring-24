@@ -12,8 +12,8 @@ public class TileManager : MonoBehaviour
 
     // >>Grid Generation<<
     // Dimensions of grid
-    const int gridWidth = 15;
-    const int gridHeight = 15;
+    public int gridWidth = 15;
+    public int gridHeight = 15;
     const int floodedXBand = 4;
     const int floodedYBand = 4;
 
@@ -61,9 +61,9 @@ public class TileManager : MonoBehaviour
         return gridGet(x, y, tileScriptGrid, null);
     }
 
-    //>>Start<<
-    // Start is called before the first frame update
-    void Start()
+    //>>init<<
+    // init is called before the first frame update
+    public void init()
     {
         // Loads in arrays
         tileObjectGrid = new GameObject[gridHeight][];
@@ -213,7 +213,7 @@ public class TileManager : MonoBehaviour
     {
         if(dir == Tile.Direction.L)
         {
-            for(int i = coord - width; i < coord + width; i++)
+            for(int i = coord - width; i <= coord + width; i++)
             {
                 if (i >= 0 && i < gridHeight)
                 {
@@ -223,7 +223,7 @@ public class TileManager : MonoBehaviour
         }
         if (dir == Tile.Direction.U)
         {
-            for (int i = coord - width; i < coord + width; i++)
+            for (int i = coord - width; i <= coord + width; i++)
             {
                 if (i >= 0 && i < gridWidth)
                 {
@@ -233,7 +233,7 @@ public class TileManager : MonoBehaviour
         }
         if (dir == Tile.Direction.R)
         {
-            for (int i = coord - width; i < coord + width; i++)
+            for (int i = coord - width; i <= coord + width; i++)
             {
                 if (i >= 0 && i < gridHeight)
                 {
@@ -243,21 +243,64 @@ public class TileManager : MonoBehaviour
         }
         if (dir == Tile.Direction.D)
         {
-
+            for (int i = coord - width; i <= coord + width; i++)
+            {
+                if (i >= 0 && i < gridWidth)
+                {
+                    tileScriptGrid[gridHeight - 1][i].newWaveAttempt(dir, flood);
+                }
+            }
+        }
+        updateNutritionValues();
+    }
+    // Sends warning attempt
+    public void sendWarning(Tile.Direction dir, int coord, int width, bool flood, float time)
+    {
+        if (dir == Tile.Direction.L)
+        {
+            for (int i = coord - width; i <= coord + width; i++)
+            {
+                if (i >= 0 && i < gridHeight)
+                {
+                    tileScriptGrid[i][gridWidth - 1].spawnWarning(dir, flood, time);
+                }
+            }
+        }
+        if (dir == Tile.Direction.U)
+        {
+            for (int i = coord - width; i <= coord + width; i++)
+            {
+                if (i >= 0 && i < gridWidth)
+                {
+                    tileScriptGrid[0][i].spawnWarning(dir, flood, time);
+                }
+            }
+        }
+        if (dir == Tile.Direction.R)
+        {
+            for (int i = coord - width; i <= coord + width; i++)
+            {
+                if (i >= 0 && i < gridHeight)
+                {
+                    tileScriptGrid[i][0].spawnWarning(dir, flood, time);
+                }
+            }
+        }
+        if (dir == Tile.Direction.D)
+        {
+            for (int i = coord - width; i <= coord + width; i++)
+            {
+                if (i >= 0 && i < gridWidth)
+                {
+                    tileScriptGrid[gridHeight - 1][i].spawnWarning(dir, flood, time);
+                }
+            }
         }
     }
     //>>Update<<
     // Update is called once per frame
     void Update()
     {
-        // Updates all of the tiles
-        for (int y = 0; y < gridHeight; y++)
-        {
-            for (int x = 0; x < gridWidth; x++)
-            {
-                tileScriptGrid[y][x].bayUpdate();
-            }
-        }
     }
     #endregion
 }
