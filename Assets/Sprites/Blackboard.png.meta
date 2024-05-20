@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 640d469b9fec04e59a256862c544da45
+guid: 7446d84032b5649cf9db5812d494da10
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -162,13 +162,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Arrows_0
+      name: Blackboard_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 27
-        width: 48
-        height: 27
+        y: 129
+        width: 240
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -176,41 +176,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 69915425944364e3b94c04bcbec4dde1
-      internalID: -1817731365
+      spriteID: 9dfe1d73c98aa4588b0d16e153ab7e53
+      internalID: -701863700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Arrows_1
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 27
-        width: 48
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f51d6dbcd275e45e1a2447b2504ec01b
-      internalID: 651043998
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrows_2
+      name: Blackboard_1
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 48
-        height: 27
+        width: 240
+        height: 129
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -218,29 +197,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d504f2b0d23454caba5415e4e21cf0df
-      internalID: 815531853
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Arrows_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 0
-        width: 48
-        height: 27
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3ed9402277c6a412faa496b4e1d7ac8e
-      internalID: 798705933
+      spriteID: 729c613ccb9434d24850a72975c63874
+      internalID: -824063676
       vertices: []
       indices: 
       edges: []
@@ -256,10 +214,8 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Arrows_0: -1817731365
-      Arrows_1: 651043998
-      Arrows_2: 815531853
-      Arrows_3: 798705933
+      Blackboard_0: -701863700
+      Blackboard_1: -824063676
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

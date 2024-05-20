@@ -20,7 +20,7 @@ public class BayAnim : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((int)Time.realtimeSinceStartup % 2 != 0)
+        if ((int)(Time.realtimeSinceStartup * 2) % 2 != 0)
         {
             cacheAnim.SetInteger("bayState", 1);
         }

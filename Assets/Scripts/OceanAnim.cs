@@ -92,7 +92,7 @@ public class OceanAnim : MonoBehaviour
         if (active)
         {
             // Alternates default animations uniformly
-            if ((int)Time.realtimeSinceStartup % 2 == 0)
+            if ((int)(Time.realtimeSinceStartup * 2) % 2 == 0)
             {
                 cacheAnimator.SetInteger("OceanState", 1);
             }

@@ -12,29 +12,40 @@ public class TileManager : MonoBehaviour
 
     // >>Grid Generation<<
     // Dimensions of grid
+    [SerializeField]
     public int gridWidth = 15;
+    [SerializeField]
     public int gridHeight = 15;
-    const int floodedXBand = 4;
-    const int floodedYBand = 4;
+    [SerializeField]
+    int floodedXBand = 4;
+    [SerializeField]
+    int floodedYBand = 4;
 
     // Representations of the grid
-    const int xStartPoint = 0;
-    const int yStartPoint = 0;
-    const float gridTransXDiff = 0.959994f;
-    const float gridTransYDiff = 0.54000003f;
+    [SerializeField]
+    float xStartPoint = 0;
+    [SerializeField]
+    float yStartPoint = 0;
+    [SerializeField]
+    float gridTransXDiff = 0.959994f;
+    [SerializeField]
+    float gridTransYDiff = 0.54000003f;
 
     // >>Nutrient Generation<<
     // Kernal size
-    const int smoothingKernalSize = 3;
+    [SerializeField]
+    int smoothingKernalSize = 3;
     // Nutrient amount
-    const float maxNutrientLevel = 1;
+    [SerializeField]
+    float maxNutrientLevel = 1;
     // Scale of base
     // The lower less percent of the max nutrient the tiles have
-    const float ascendPower = 1.01f;
+    [SerializeField]
+    float ascendPower = 1.01f;
     // Scale of decension
     // The higher the more the more harshley nutrients farther in the kernal are weighed
     [SerializeField]
-    const float descendPower = 3.0f;
+    float descendPower = 3.0f;
 
     // >>Grid Storage<<
     GameObject[][] tileObjectGrid;

@@ -100,7 +100,7 @@ MonoBehaviour:
   active: 1
   recedeColor: {r: 0.09696483, g: 0.5283019, b: 0.07725169, a: 1}
   waveColor: {r: 0.6509434, g: 0.095185116, b: 0.095185116, a: 1}
-  flashMultiplier: 2
+  flashMultiplier: 2.5
   cacheRender: {fileID: 3240903814773205532}
   riseSpeed: 0.05
   timeLeftUntilDesctructLeft: 10

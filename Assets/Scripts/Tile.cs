@@ -198,7 +198,7 @@ public class Tile : MonoBehaviour
     // Updates overlay from adjacent tile states
     public void bayUpdate()
     {
-        if (currentState != TileState.Submerged)
+        if (currentState != TileState.Submerged && !getIsInAnim())
         {
             // Submerged tiles with finished animations and edges result in a visible bay line
             bool doesTileComply(Tile givenTile)
