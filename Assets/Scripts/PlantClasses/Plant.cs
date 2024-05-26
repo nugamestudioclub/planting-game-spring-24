@@ -42,8 +42,7 @@ public class Plant : MonoBehaviour
     // newTime = (baseTime) / (nutritionModifier * otherModifiers)
 
     // Base amount of time for production
-    [SerializeField]
-    float baseTimeUntilProduce;
+    public float baseTimeUntilProduce;
     float timeLeftUntilProduce = 0;
 
     // Susceptibility to nutrition
@@ -87,6 +86,14 @@ public class Plant : MonoBehaviour
     public virtual void disconnect()
     {
         Instantiate(uponDisconnect, transform.position, Quaternion.identity.normalized);
+        for(int i = 0; i < givenModifierList.Count; i++)
+        {
+            deleteModifier((PlantModifier)givenModifierList[i]);
+        }
+        for(int i = 0; i < recievedModifierList.Count; i++)
+        {
+            deleteModifier((PlantModifier)recievedModifierList[i]);
+        }
         Destroy(gameObject);
         Destroy(this);
     }
@@ -109,6 +116,21 @@ public class Plant : MonoBehaviour
         plantList = new ArrayList();
     }
 
+    //>>Special Plant Update<<
+    // Notifies all plants when a plant has been placed or destroyed.
+    public static void updateAllSpecialPlants()
+    {
+        for(int i = 0; i < plantList.Count; i++)
+        {
+            ((Plant)plantList[i]).updateSpecialPlant();
+        }
+    }
+    // For class children of plant
+    // Checks if for updates
+    public virtual void updateSpecialPlant()
+    {
+
+    }
 
     //>>Modifiers<<
     // Calculates the nutrition modifier based on tile nutrition and nutritionSusc
@@ -146,7 +168,7 @@ public class Plant : MonoBehaviour
     // Removes a modifier
     public void deleteModifier(PlantModifier modifier)
     {
-        givenModifierList.Remove(modifier);
+        modifier.givePlant.givenModifierList.Remove(modifier);
         modifier.recievePlant.recievedModifierList.Remove(modifier);
     }
 
@@ -156,11 +178,6 @@ public class Plant : MonoBehaviour
         timeLeftUntilProduce = newProductionTime();
         Instantiate(uponFoodProd, transform.position, Quaternion.identity.normalized);
         GameManager.singleManager.increaseFood(1);
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

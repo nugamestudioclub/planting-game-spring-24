@@ -75,7 +75,8 @@ public class blackboardScript : MonoBehaviour
     // Updates boosts of a plant
     public void boostsGive(Plant givenPlant)
     {
-        string retString = (float)Mathf.Round(givenPlant.newNutritionModifier() * 100)/100 + "x <--- Nutrition rate modifier<br>";
+        string retString = "Rate Modifier Calculation:<br>";
+        retString = retString + (float)Mathf.Round(givenPlant.newNutritionModifier() * 100)/100 + "x <--- Nutrition rate modifier<br>";
         if(givenPlant.recievedModifierList.Count > 0)
         {
             Plant.PlantModifier[] modList = (Plant.PlantModifier[])givenPlant.recievedModifierList.ToArray();
@@ -86,8 +87,8 @@ public class blackboardScript : MonoBehaviour
             }
         }
         retString = retString + "= " + (float)Mathf.Round((float)givenPlant.newExtraModifier() * givenPlant.newNutritionModifier() * 100) / 100 + "<br><br>";
-        retString = retString + "Final Production time Equation<br>";
-        retString = retString + "Base production time / Rate modifier =<br>" + (float)Mathf.Round((float)givenPlant.newProductionTime() * 100) / 100;
+        retString = retString + "Final Production Time Equation:<br>";
+        retString = retString + "Base production time(" + (float)Mathf.Round(givenPlant.baseTimeUntilProduce * 100) / 100 + ") / Rate modifier (" + (float)Mathf.Round((float)givenPlant.newExtraModifier() * givenPlant.newNutritionModifier() * 100) / 100 + ") =<br>" + (float)Mathf.Round((float)givenPlant.newProductionTime() * 100) / 100;
         boostsField.text = retString;
     }
 

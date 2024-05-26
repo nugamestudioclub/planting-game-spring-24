@@ -26134,7 +26134,7 @@ MonoBehaviour:
     food at a very good rate.
   plantPrefabs:
   - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
+  - {fileID: 7272937669887384646, guid: 8208f24d58c5a4bc1b5cb565873214d7, type: 3}
   - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
   - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
   - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
