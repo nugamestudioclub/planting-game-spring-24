@@ -30,6 +30,7 @@ public class mouseBox : MonoBehaviour
         // If mouse inside box
         if (xBound + boxPos.x > mousePos.x && boxPos.x - xBound< mousePos.x && yBound + boxPos.y > mousePos.y && boxPos.y - yBound < mousePos.y)
         {
+            cursorScript.singleCursor.setLastMouseBox(this);
             cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.b, cacheRender.color.g, 1);
             mouseInBox = true;
             if(Input.GetAxisRaw("Plant") != 0)

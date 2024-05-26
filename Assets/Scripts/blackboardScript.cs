@@ -62,7 +62,7 @@ public class blackboardScript : MonoBehaviour
         plantDisplays.gameObject.transform.localScale = imageUpScale;
         if (placedPlant)
         {
-            boostsLabel.text = "Production Rate Modifier:";
+            boostsLabel.text = "Production Rate:";
             boostsField.text = "1x";
         }
         else
@@ -75,14 +75,19 @@ public class blackboardScript : MonoBehaviour
     // Updates boosts of a plant
     public void boostsGive(Plant givenPlant)
     {
-        string retString = givenPlant.newNutritionModifier() + "x <--- Nutrition rate modifier<br>";
-        Plant.PlantModifier[] modList = (Plant.PlantModifier[])givenPlant.recievedModifierList.ToArray();
-        for (int i = 0; i < modList.Length; i++)
+        string retString = (float)Mathf.Round(givenPlant.newNutritionModifier() * 100)/100 + "x <--- Nutrition rate modifier<br>";
+        if(givenPlant.recievedModifierList.Count > 0)
         {
-            retString = retString + Mathf.Round((float)modList[i].modifierAmount / 100) * 100;
-            retString = retString + "x <--- " + modList[i].reason + "<br>";
+            Plant.PlantModifier[] modList = (Plant.PlantModifier[])givenPlant.recievedModifierList.ToArray();
+            for (int i = 0; i < modList.Length; i++)
+            {
+                retString = retString + Mathf.Round((float)modList[i].modifierAmount / 100) * 100;
+                retString = retString + "x <--- " + modList[i].reason + "<br>";
+            }
         }
-        retString = retString + "= " + Mathf.Round(((float)givenPlant.newExtraModifier() * givenPlant.newNutritionModifier()) / 100) * 100;
+        retString = retString + "= " + (float)Mathf.Round((float)givenPlant.newExtraModifier() * givenPlant.newNutritionModifier() * 100) / 100 + "<br><br>";
+        retString = retString + "Final Production time Equation<br>";
+        retString = retString + "Base production time / Rate modifier =<br>" + (float)Mathf.Round((float)givenPlant.newProductionTime() * 100) / 100;
         boostsField.text = retString;
     }
 

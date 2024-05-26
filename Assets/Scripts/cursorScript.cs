@@ -36,6 +36,10 @@ public class cursorScript : MonoBehaviour
                 blackboardScript.singleBlackboard.plantShowcase(onPlant, true);
                 blackboardScript.singleBlackboard.boostsGive(lastMouseBox.cacheTile.plantScriptAttached);
             }
+            else
+            {
+                blackboardScript.singleBlackboard.tutorialShow();
+            }
         }
     }
 
