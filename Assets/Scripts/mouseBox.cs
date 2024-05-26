@@ -9,11 +9,13 @@ public class mouseBox : MonoBehaviour
     [SerializeField]
     float yBound;
     SpriteRenderer cacheRender;
-    bool mouseInBox;
+    public Tile cacheTile;
+    public bool mouseInBox;
     // Loads cache
-    public void init()
+    public void init(Tile insertTile)
     {
         cacheRender = gameObject.GetComponent<SpriteRenderer>();
+        cacheTile = insertTile;
     }
     // Updates sprite color
     public void updateColor(Color insertColor)
@@ -25,11 +27,21 @@ public class mouseBox : MonoBehaviour
     {
         Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         Vector2 boxPos = transform.position;
+        // If mouse inside box
         if (xBound + boxPos.x > mousePos.x && boxPos.x - xBound< mousePos.x && yBound + boxPos.y > mousePos.y && boxPos.y - yBound < mousePos.y)
         {
             cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.b, cacheRender.color.g, 1);
             mouseInBox = true;
+            if(Input.GetAxisRaw("Plant") != 0)
+            {
+                cursorScript.singleCursor.plantPlot(cacheTile);
+            }
+            if (Input.GetAxisRaw("Dig") != 0)
+            {
+                cursorScript.singleCursor.digPlot(cacheTile);
+            }
         }
+        // If mouse outside box
         else
         {
             cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.b, cacheRender.color.g, 0);

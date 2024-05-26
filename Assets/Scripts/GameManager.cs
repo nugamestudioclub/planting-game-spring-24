@@ -1,19 +1,28 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class GameManager : MonoBehaviour
 {
+    // Static accsess
+    public static GameManager singleManager;
 
     // Cache
     TileManager tiles;
 
+    // Food
     [SerializeField]
     int startingFood;
-
+    int food;
     // Counted in seconds per food
     [SerializeField]
     private float foodDecrease;
+    [SerializeField]
+    forageButton cacheButton;
+    //>>Forage<<
+    // Counted in seconds
+    [SerializeField]
+    private float forageCooldown;
 
     //>>Tide Manager<<
     // Counted in seconds
@@ -29,40 +38,82 @@ public class GameManager : MonoBehaviour
     private int minLand;
     [SerializeField]
     private float warningTime;
-    // Counted in seconds
-    [SerializeField]
-    private float forageCooldown;
 
+    //>>Timers<<
     Timer foodTimer;
-    Timer tideTimer;
+    Timer tideWarningTimer;
     Timer forageTimer;
+    float timeSinceStart = 0;
 
+    //>>UI<<
     [SerializeField]
-    int food;
+    TextMeshProUGUI forageText;
+    [SerializeField]
+    TextMeshProUGUI foodText;
+    [SerializeField]
+    TextMeshProUGUI timeText;
+
     public bool CanForage = true;
 
     // Start is called before the first frame update
     void Start()
     {
-        tiles = gameObject.GetComponent<TileManager>();
-        tiles.init();
-        food = startingFood;
-        foodTimer = Timer.Register(foodDecrease, () => decreaseFood(1));
-        tideTimer = Timer.Register(tideCooldown, () => doFloodWarning());
-        forageTimer = Timer.Register(forageCooldown, () => CanForage = true);
+        if(GameObject.FindObjectsOfType<GameManager>().Length > 1)
+        {
+            Destroy(gameObject);
+            Destroy(this);
+        }
+        else
+        {
+            singleManager = this;
+            Plant.initPlantList();
+            cacheButton.init(this);
+            tiles = gameObject.GetComponent<TileManager>();
+            tiles.init();
+            food = startingFood;
+            foodTimer = Timer.Register(foodDecrease, () => decreaseFood(1));
+            tideWarningTimer = Timer.Register(tideCooldown, () => doFloodWarning());
+            forageTimer = Timer.Register(forageCooldown, () => reinitateForageAval());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (forageTimer.isDone)
+        {
+            forageText.text = "Ready To Forage!";
+        }
+        else
+        {
+            forageText.text = "Time Left Until Next Forage:<br>" + Mathf.Round(forageTimer.GetTimeRemaining());
+        }
+        foodText.text = "Food Left: " + food;
+        timeSinceStart += Time.deltaTime;
+        timeText.text = "Time survived:<br>" + Mathf.Round(timeSinceStart);
     }
 
+    // Food functions
     void decreaseFood(int val)
     {
         food = Mathf.Max(food - val, 0);
+        Timer.Register(foodDecrease, () => decreaseFood(1));
+    }
+    public void increaseFood(int val)
+    {
+        food = food + val;
+    }
+    // Forage functions
+    void reinitateForageAval()
+    {
+        cacheButton.forageAvaliable();
+    }
+    public void restartForage()
+    {
+        forageTimer = Timer.Register(forageCooldown, () => reinitateForageAval());
     }
 
+    // Tide functions
     void doFloodWarning()
     {
         // Generates direction
@@ -116,7 +167,7 @@ public class GameManager : MonoBehaviour
     void doFlood(Tile.Direction dir, int coord, int width, bool flood)
     {
         tiles.sendWave(dir, coord, width, flood);
-        tideTimer = Timer.Register(tideCooldown, () => doFloodWarning());
+        tideWarningTimer = Timer.Register(tideCooldown, () => doFloodWarning());
     }
 
 

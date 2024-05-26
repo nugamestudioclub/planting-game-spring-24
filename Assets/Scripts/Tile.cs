@@ -41,7 +41,8 @@ public class Tile : MonoBehaviour
     // Checks if tile has been loaded
     bool active = false;
     GameObject plantObjectAttached;
-    Plant plantScriptAttached;
+    public Plant plantScriptAttached;
+    public string plantID;
 
     // >>Nutrient Levels<<
     public float maxNutr;
@@ -67,7 +68,7 @@ public class Tile : MonoBehaviour
         cachedAnimHandeler = transform.GetChild(0).GetComponent<OceanAnim>();
         cachedMouseBox = transform.GetChild(1).GetComponent<mouseBox>();
         // Initialize cached components
-        cachedMouseBox.init();
+        cachedMouseBox.init(this);
         cachedAnimHandeler.initState(setState == TileState.Submerged, this);
         // Sets current state
         currentState = setState;
@@ -139,6 +140,7 @@ public class Tile : MonoBehaviour
         nutritionLevel = newNutrLev;
         cachedRender.color = Color.Lerp(infertileColor, fertileColor, (nutritionLevel / maxNutr));
     }
+
     // Updates state from flood and plays anim
     public void updateWave(TileState newState, Direction dir)
     {
@@ -179,6 +181,7 @@ public class Tile : MonoBehaviour
         noNullBayUpdate(downTile);
         bayUpdate();
     }
+
     // Updates mouse box color to current state
     public void updateMouseBox()
     {
@@ -195,6 +198,7 @@ public class Tile : MonoBehaviour
             cachedMouseBox.updateColor(mouseBoxDefaultColor);
         }
     }
+
     // Updates overlay from adjacent tile states
     public void bayUpdate()
     {
@@ -254,6 +258,39 @@ public class Tile : MonoBehaviour
     public bool getIsInAnim()
     {
         return cachedAnimHandeler.getIsInAnim();
+    }
+
+    // Creates a plant if plot is avaliable
+    // Returns true if process was sucessful
+    public bool createPlant(string id)
+    {
+        if(currentState == TileState.Default)
+        {
+            plantID = id;
+            GameObject loadPrefab = seedTypeLoader.singleLoader.getPrefab(id);
+            plantObjectAttached = Instantiate(loadPrefab, transform.position, Quaternion.identity.normalized);
+            plantScriptAttached = plantObjectAttached.GetComponent<Plant>();
+            plantScriptAttached.initPlant(this, id);
+            currentState = TileState.Planted;
+            updateMouseBox();
+            return true;
+        }
+        return false;
+    }
+
+    // Destroys a plant on the tile if the plot is being used
+    // Returns true if process was sucessful
+    public bool destroyPlant()
+    {
+        if(currentState == TileState.Planted)
+        {
+            plantScriptAttached.disconnect();
+            plantObjectAttached = null;
+            plantScriptAttached = null;
+            currentState = TileState.Default;
+            updateMouseBox();
+        }
+        return false;
     }
     // Update is called once per frame
     void Update()
