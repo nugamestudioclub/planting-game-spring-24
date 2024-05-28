@@ -31,7 +31,7 @@ public class mouseBox : MonoBehaviour
         if (xBound + boxPos.x > mousePos.x && boxPos.x - xBound< mousePos.x && yBound + boxPos.y > mousePos.y && boxPos.y - yBound < mousePos.y)
         {
             cursorScript.singleCursor.setLastMouseBox(this);
-            cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.b, cacheRender.color.g, 1);
+            cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.g, cacheRender.color.b, 1);
             mouseInBox = true;
             if(Input.GetAxisRaw("Plant") != 0)
             {
@@ -45,7 +45,7 @@ public class mouseBox : MonoBehaviour
         // If mouse outside box
         else
         {
-            cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.b, cacheRender.color.g, 0);
+            cacheRender.color = new Color(cacheRender.color.r, cacheRender.color.g, cacheRender.color.b, 0);
             mouseInBox = false;
         }
     }

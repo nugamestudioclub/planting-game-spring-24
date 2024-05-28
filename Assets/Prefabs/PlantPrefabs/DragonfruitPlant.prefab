@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &5412777648820460636
+--- !u!1 &5254487709816277481
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,38 +8,38 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 6190315081498908622}
-  - component: {fileID: 7187044489630813749}
-  - component: {fileID: 7743786799382629783}
+  - component: {fileID: 5090561103783787502}
+  - component: {fileID: 5731101500835422314}
+  - component: {fileID: 2682914536391086924}
   m_Layer: 0
-  m_Name: DefaultPlant
+  m_Name: DragonfruitPlant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &6190315081498908622
+--- !u!4 &5090561103783787502
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412777648820460636}
+  m_GameObject: {fileID: 5254487709816277481}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.421, y: 0.248, z: 0}
+  m_LocalPosition: {x: -9.727361, y: -2.8392558, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &7187044489630813749
+--- !u!212 &5731101500835422314
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412777648820460636}
+  m_GameObject: {fileID: 5254487709816277481}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 1202289651
   m_SortingLayer: 1
   m_SortingOrder: 0
-  m_Sprite: {fileID: 1072097360, guid: f19d147a602a54584ba34efc6162f3dd, type: 3}
+  m_Sprite: {fileID: -942048052, guid: f19d147a602a54584ba34efc6162f3dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,13 +85,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7743786799382629783
+--- !u!114 &2682914536391086924
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412777648820460636}
+  m_GameObject: {fileID: 5254487709816277481}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 67ef145aeea604276be0ec375717e00c, type: 3}
@@ -101,7 +101,7 @@ MonoBehaviour:
   cacheTile: {fileID: 0}
   uponDisconnect: {fileID: 1119880171458157126, guid: 83fce779593e54047bb0a7b3723868e5, type: 3}
   uponFoodProd: {fileID: 393910537629492746, guid: 560eafd0280e74b32819aa5418744b3d, type: 3}
-  bounceAmplitude: 0.1
-  bounceSpeed: 0.75
-  baseTimeUntilProduce: 8
-  nutritionSusc: 1
+  bounceAmplitude: 0.025
+  bounceSpeed: 1
+  baseTimeUntilProduce: 10
+  nutritionSusc: 3

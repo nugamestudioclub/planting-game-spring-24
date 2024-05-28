@@ -30,9 +30,8 @@ public class seedTypeLoader : MonoBehaviour
     // Actually stores information of plants
     Dictionary<string, plantValues> loaderDict = new Dictionary<string, plantValues>();
 
-    // Start is called before the first frame update
     // Creates hashmap
-    void Start()
+    void Awake()
     {
         if(GameObject.FindObjectsOfType<seedTypeLoader>().Length > 1)
         {

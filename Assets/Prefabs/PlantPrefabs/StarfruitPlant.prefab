@@ -71,8 +71,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1640247277
-  m_SortingLayer: 2
+  m_SortingLayerID: 1202289651
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_Sprite: {fileID: 1621221072, guid: f19d147a602a54584ba34efc6162f3dd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -98,6 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   plantName: 
+  cacheTile: {fileID: 0}
   uponDisconnect: {fileID: 1119880171458157126, guid: 83fce779593e54047bb0a7b3723868e5, type: 3}
   uponFoodProd: {fileID: 393910537629492746, guid: 560eafd0280e74b32819aa5418744b3d, type: 3}
   bounceAmplitude: 0.1

@@ -9,11 +9,20 @@ public class seedSlot : MonoBehaviour
     [SerializeField]
     string currentDisplay = "empty";
 
+    [SerializeField]
+    bool startWithPlant;
     plantDisplay cacheDisplay;
     // Start is called before the first frame update
     void Start()
     {
         cacheDisplay = transform.GetChild(0).GetComponent<plantDisplay>();
+        cacheDisplay.init();
+        if (startWithPlant)
+        {
+            string seedID = seedTypeLoader.singleLoader.getRandomID();
+            currentDisplay = seedID;
+            cacheDisplay.insertNewSprite(currentDisplay);
+        }
     }
 
     // Returns true if process was successful

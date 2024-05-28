@@ -1,8 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Plant;
 
-public class VinePlant : Plant
+public class LemonPlant : Plant
 {
     // The modifier added for each nearby plant
     [SerializeField]
@@ -11,9 +12,9 @@ public class VinePlant : Plant
     // Adds a self imposed modifier upon a tile having a plant
     void addModIfPlant(Tile givenTile)
     {
-        if(givenTile != null && givenTile.currentState == Tile.TileState.Planted)
+        if (givenTile != null && givenTile.currentState == Tile.TileState.Planted && givenTile.plantScriptAttached.GetType() == typeof(LemonPlant))
         {
-            giveModifier(this, neighborModify, "Being nearby other plants");
+            giveModifier(this, neighborModify, "Being nearby other plants of the same type");
         }
     }
 

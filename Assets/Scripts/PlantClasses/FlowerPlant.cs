@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VinePlant : Plant
+public class FlowerPlant : Plant
 {
-    // The modifier added for each nearby plant
+    // The modifier put on to each plant
     [SerializeField]
     float neighborModify;
 
     // Adds a self imposed modifier upon a tile having a plant
     void addModIfPlant(Tile givenTile)
     {
-        if(givenTile != null && givenTile.currentState == Tile.TileState.Planted)
+        if (givenTile != null && givenTile.currentState == Tile.TileState.Planted)
         {
-            giveModifier(this, neighborModify, "Being nearby other plants");
+            giveModifier(givenTile.plantScriptAttached, neighborModify, "Boosted by nearby flower");
         }
     }
 

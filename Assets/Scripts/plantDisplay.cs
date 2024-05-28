@@ -6,7 +6,7 @@ public class plantDisplay : MonoBehaviour
 {   
     Image cacheSprite;
     // Start is called before the first frame update
-    void Start()
+    public void init()
     {
         cacheSprite = gameObject.GetComponent<Image>();
     }

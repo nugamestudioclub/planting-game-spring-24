@@ -79,11 +79,10 @@ public class blackboardScript : MonoBehaviour
         retString = retString + (float)Mathf.Round(givenPlant.newNutritionModifier() * 100)/100 + "x <--- Nutrition rate modifier<br>";
         if(givenPlant.recievedModifierList.Count > 0)
         {
-            Plant.PlantModifier[] modList = (Plant.PlantModifier[])givenPlant.recievedModifierList.ToArray();
-            for (int i = 0; i < modList.Length; i++)
+            foreach (Plant.PlantModifier mod in givenPlant.recievedModifierList)
             {
-                retString = retString + Mathf.Round((float)modList[i].modifierAmount / 100) * 100;
-                retString = retString + "x <--- " + modList[i].reason + "<br>";
+                retString = retString + Mathf.Round((float)mod.modifierAmount * 100) / 100;
+                retString = retString + "x <--- " + mod.reason + "<br>";
             }
         }
         retString = retString + "= " + (float)Mathf.Round((float)givenPlant.newExtraModifier() * givenPlant.newNutritionModifier() * 100) / 100 + "<br><br>";

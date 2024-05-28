@@ -133,6 +133,10 @@ public class Tile : MonoBehaviour
                 }
             }
         }
+        else if(flood)
+        {
+            updateWave(TileState.Submerged, dir);
+        }
     }
     // Updates nutrient value and the sprite color accordingly
     public void updateNutr(float newNutrLev)
@@ -270,8 +274,8 @@ public class Tile : MonoBehaviour
             GameObject loadPrefab = seedTypeLoader.singleLoader.getPrefab(id);
             plantObjectAttached = Instantiate(loadPrefab, transform.position, Quaternion.identity.normalized);
             plantScriptAttached = plantObjectAttached.GetComponent<Plant>();
-            plantScriptAttached.initPlant(this, id);
             currentState = TileState.Planted;
+            plantScriptAttached.initPlant(this, id);
             updateMouseBox();
             return true;
         }
@@ -287,8 +291,6 @@ public class Tile : MonoBehaviour
             plantScriptAttached.disconnect();
             plantObjectAttached = null;
             plantScriptAttached = null;
-            currentState = TileState.Default;
-            updateMouseBox();
         }
         return false;
     }

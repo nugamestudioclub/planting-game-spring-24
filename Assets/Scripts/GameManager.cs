@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // Static accsess
@@ -10,24 +11,17 @@ public class GameManager : MonoBehaviour
     // Cache
     TileManager tiles;
 
-    // Food
+    //>>Food<<
     [SerializeField]
     int startingFood;
     int food;
-    // Counted in seconds per food
     [SerializeField]
-    private float foodDecrease;
+    int foodLostPerCycle;
     [SerializeField]
     forageButton cacheButton;
-    //>>Forage<<
-    // Counted in seconds
-    [SerializeField]
-    private float forageCooldown;
 
     //>>Tide Manager<<
     // Counted in seconds
-    [SerializeField]
-    private float tideCooldown;
     [SerializeField]
     int width;
     [SerializeField]
@@ -36,14 +30,54 @@ public class GameManager : MonoBehaviour
     private int maxLand;
     [SerializeField]
     private int minLand;
-    [SerializeField]
-    private float warningTime;
 
     //>>Timers<<
     Timer foodTimer;
     Timer tideWarningTimer;
     Timer forageTimer;
     float timeSinceStart = 0;
+
+    //>>Time Expressed<<
+    // All cooldowns curve up and down
+    // Food decrease curve
+    [SerializeField]
+    private float foodDecreaseCurveAmp;
+    [SerializeField]
+    private float foodDecreaseCurveBase;
+    [SerializeField]
+    private float foodDecreaseExpMulti;
+    [SerializeField]
+    private float foodDecreaseBaseAdd;
+
+    // Forage cooldown curve
+    [SerializeField]
+    private float forageCooldownCurveAmp;
+    [SerializeField]
+    private float forageCooldownCurveBase;
+    [SerializeField]
+    private float forageCooldownExpMulti;
+    [SerializeField]
+    private float forageCooldownBaseAdd;
+
+    // Tide warning curve
+    [SerializeField]
+    private float warningCurveAmp;
+    [SerializeField]
+    private float warningCurveBase;
+    [SerializeField]
+    private float warningExpMulti;
+    [SerializeField]
+    private float warningBaseAdd;
+
+    // Tide cooldown curve
+    [SerializeField]
+    private float tideCooldownCurveAmp;
+    [SerializeField]
+    private float tideCooldownCurveBase;
+    [SerializeField]
+    private float tideCooldownExpMulti;
+    [SerializeField]
+    private float tideCooldownBaseAdd;
 
     //>>UI<<
     [SerializeField]
@@ -55,6 +89,27 @@ public class GameManager : MonoBehaviour
 
     public bool CanForage = true;
 
+    //>>Expressed Cooldown Functions<<
+    float getPointInCurve(float time, float curveAmplitude, float curveBase, float exponentMultiplier, float baseAdd)
+    {
+        return curveAmplitude * Mathf.Pow(curveBase, exponentMultiplier * time) + baseAdd;
+    }
+    float expressedFoodDecreaseTime()
+    {
+        return getPointInCurve(timeSinceStart, foodDecreaseCurveAmp, foodDecreaseCurveBase, foodDecreaseExpMulti, foodDecreaseBaseAdd);
+    }
+    float expressedTideCooldownTime()
+    {
+        return getPointInCurve(timeSinceStart, tideCooldownCurveAmp, tideCooldownCurveBase, tideCooldownExpMulti, tideCooldownBaseAdd);
+    }
+    float expressedForageCooldownTime()
+    {
+        return getPointInCurve(timeSinceStart, forageCooldownCurveAmp, forageCooldownCurveBase, forageCooldownExpMulti, forageCooldownBaseAdd);
+    }
+    float expressedWarningTime()
+    {
+        return getPointInCurve(timeSinceStart, warningCurveAmp, warningCurveBase, warningExpMulti, warningBaseAdd);
+    }
     // Start is called before the first frame update
     void Start()
     {
@@ -71,9 +126,9 @@ public class GameManager : MonoBehaviour
             tiles = gameObject.GetComponent<TileManager>();
             tiles.init();
             food = startingFood;
-            foodTimer = Timer.Register(foodDecrease, () => decreaseFood(1));
-            tideWarningTimer = Timer.Register(tideCooldown, () => doFloodWarning());
-            forageTimer = Timer.Register(forageCooldown, () => reinitateForageAval());
+            foodTimer = Timer.Register(expressedFoodDecreaseTime(), () => decreaseFood(foodLostPerCycle));
+            tideWarningTimer = Timer.Register(expressedWarningTime(), () => doFloodWarning());
+            forageTimer = Timer.Register(expressedForageCooldownTime(), () => reinitateForageAval());
         }
     }
 
@@ -97,12 +152,21 @@ public class GameManager : MonoBehaviour
     void decreaseFood(int val)
     {
         food = Mathf.Max(food - val, 0);
-        Timer.Register(foodDecrease, () => decreaseFood(1));
+        Timer.Register(expressedFoodDecreaseTime(), () => decreaseFood(foodLostPerCycle));
+        if(food <= 0)
+        {
+            onLose();
+        }
     }
     public void increaseFood(int val)
     {
         food = food + val;
     }
+    public void onLose()
+    {
+        SceneManager.LoadScene("LoseScreen");
+    }
+
     // Forage functions
     void reinitateForageAval()
     {
@@ -110,7 +174,7 @@ public class GameManager : MonoBehaviour
     }
     public void restartForage()
     {
-        forageTimer = Timer.Register(forageCooldown, () => reinitateForageAval());
+        forageTimer = Timer.Register(expressedForageCooldownTime(), () => reinitateForageAval());
     }
 
     // Tide functions
@@ -161,13 +225,13 @@ public class GameManager : MonoBehaviour
             int generateChance = Random.Range(0, 100);
             willFlood = generateChance < floodChance;
         }
-        tiles.sendWarning(dir, generateCoord, width, willFlood, warningTime);
-        Timer.Register(warningTime, () => doFlood(dir, generateCoord, width, willFlood));
+        tiles.sendWarning(dir, generateCoord, width, willFlood, expressedWarningTime());
+        Timer.Register(expressedWarningTime(), () => doFlood(dir, generateCoord, width, willFlood));
     }
     void doFlood(Tile.Direction dir, int coord, int width, bool flood)
     {
         tiles.sendWave(dir, coord, width, flood);
-        tideWarningTimer = Timer.Register(tideCooldown, () => doFloodWarning());
+        tideWarningTimer = Timer.Register(expressedTideCooldownTime(), () => doFloodWarning());
     }
 
 

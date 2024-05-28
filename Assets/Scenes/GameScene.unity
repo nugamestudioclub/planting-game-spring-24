@@ -3414,6 +3414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &253822303
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4813,7 +4814,7 @@ Transform:
   m_GameObject: {fileID: 368580118}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.3168936, y: 2.781278, z: 2.7809918}
+  m_LocalPosition: {x: -1.3159513, y: 2.781278, z: 2.7809918}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6249,7 +6250,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -574, y: 379}
+  m_AnchoredPosition: {x: -574, y: 405.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &450988078
@@ -6726,6 +6727,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 1
 --- !u!114 &458534452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7579,6 +7581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 1
 --- !u!1 &496848203
 GameObject:
   m_ObjectHideFlags: 0
@@ -9076,8 +9079,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 48
-  m_fontSizeBase: 48
+  m_fontSize: 46
+  m_fontSizeBase: 46
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13522,8 +13525,12 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ">>Objective of the Game<<\nAttempt to avoid running out of food.\nAdapt
-    to the shifting tides of the island.\n\n>>Mouse controls<<\nLeft click to pick
+  m_text: ">>Objective of the Game<<\nAttempt to avoid running out of food.\nFood
+    runs out over time\nso place plants to produce food.\nOver time the tides become
+    more chaotic.\nand food runs out quicker.\n\n>>Tide System<<\nThe shape of the
+    island changes over time\nas waves come and go.\nA warning sign comes before
+    each change,\ngreen arrows indicate receding tides in a direction\nred arrows
+    indicate rising tides in a direction.\n\n>>Mouse controls<<\nLeft click to pick
     up and place plants.\nRight click to destroy placed plants.\n\nHover over a placed
     plant or grab a plant to look at the details of said plant.\n\n>>Seed System<<
     \nAfter a cooldown, click on the FORAGE FOR SEEDS button to grab a plant. You
@@ -13555,8 +13562,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 24
-  m_fontSizeBase: 24
+  m_fontSize: 18
+  m_fontSizeBase: 18
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -13658,6 +13665,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &801753715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15301,7 +15309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -813, y: 112.53792}
+  m_AnchoredPosition: {x: -813, y: 183.8}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &935414179
@@ -17330,6 +17338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &1067355022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17477,6 +17486,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 1
 --- !u!114 &1070110442
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17693,7 +17703,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 87.00001, y: -313.59998}
+  m_AnchoredPosition: {x: 0, y: -313.59998}
   m_SizeDelta: {x: 361, y: 196}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1082402688
@@ -21004,6 +21014,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &1292449911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21359,6 +21370,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &1314488080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21750,7 +21762,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -193.8, y: -0.3}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1332125920
@@ -24091,7 +24103,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 531, y: -247}
+  m_AnchoredPosition: {x: 611.1, y: -247}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1459719606
@@ -24736,6 +24748,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &1507695726
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26127,22 +26140,21 @@ MonoBehaviour:
   - Has no interactions with nearby plants. This plant is less susceptible to the
     nutrition of the plot it is planted in.
   - This plant boosts the production speed of nearby plants.
-  - This plant needs to be planted next to other plants. It will destroy all nearby
-    plants upon placement and begin rapidly producing food. The rate of production
-    depends on the amount of plants destroyed.
-  - This plant stores all of the food it produces until it gets destroyed. Produces
-    food at a very good rate.
+  - This plant produces food insanely quick but has limited time until self-desctruction.
+    This plant kills off plants initially surrounding it to extend its lifetime.
+  - This plant produces food quickly by itself but sabatoges the production of plants
+    three tiles left or right of it.
   plantPrefabs:
   - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
   - {fileID: 7272937669887384646, guid: 8208f24d58c5a4bc1b5cb565873214d7, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
-  - {fileID: 5412777648820460636, guid: 0e4e5cf7483074b7db8b9d55864d4725, type: 3}
+  - {fileID: 5759209337268782820, guid: 2b7c1ff2d12a34385a641558c463e54f, type: 3}
+  - {fileID: 2177907743593136189, guid: 7230ab3fd39394a1895ed342bfcc922e, type: 3}
+  - {fileID: 5210872838320042758, guid: eacb7cd8c1ba44d4ca748ad0395eb932, type: 3}
+  - {fileID: 5254487709816277481, guid: 8a4517f1bdef34377ab0b51e8c7a7a5a, type: 3}
+  - {fileID: 6839735376649109364, guid: e561715f18c484b39a699f9a156c843e, type: 3}
+  - {fileID: 1879620109912478621, guid: 1faa05d2c21774663bca9db972852d90, type: 3}
+  - {fileID: 3300345304612859329, guid: ed051a52dcfe24c018f21ec8d2813151, type: 3}
+  - {fileID: 5130482882685800965, guid: 2df87798890fe45819f5ca31dc2f8729, type: 3}
   plantSprites:
   - {fileID: 1072097360, guid: f19d147a602a54584ba34efc6162f3dd, type: 3}
   - {fileID: 1621221072, guid: f19d147a602a54584ba34efc6162f3dd, type: 3}
@@ -27086,6 +27098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 1
 --- !u!114 &1680952581
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30540,7 +30553,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 531, y: -389}
+  m_AnchoredPosition: {x: 611.1, y: -389}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1845251888
@@ -31050,7 +31063,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: -453}
+  m_AnchoredPosition: {x: 0, y: -453}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1884287690
@@ -31371,6 +31384,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &1893601295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31536,16 +31550,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35af0e28bde35d94d882def6ff1a06be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingFood: 10
-  foodDecrease: 5
+  startingFood: 20
+  foodLostPerCycle: 3
   cacheButton: {fileID: 1082402691}
-  forageCooldown: 3
-  tideCooldown: 2
   width: 2
   floodChance: 50
   maxLand: 70
   minLand: 25
-  warningTime: 5
+  foodDecreaseCurveAmp: 5
+  foodDecreaseCurveBase: 0.95
+  foodDecreaseExpMulti: 0.1
+  foodDecreaseBaseAdd: 0.1
+  forageCooldownCurveAmp: 8
+  forageCooldownCurveBase: 0.95
+  forageCooldownExpMulti: 0.1
+  forageCooldownBaseAdd: 2
+  warningCurveAmp: 5
+  warningCurveBase: 0.95
+  warningExpMulti: 0.1
+  warningBaseAdd: 3
+  tideCooldownCurveAmp: 10
+  tideCooldownCurveBase: 0.95
+  tideCooldownExpMulti: 2
+  tideCooldownBaseAdd: 0
   forageText: {fileID: 1884287690}
   foodText: {fileID: 1459719606}
   timeText: {fileID: 1845251888}
@@ -31699,6 +31726,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentDisplay: empty
+  startWithPlant: 0
 --- !u!114 &1896427902
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32283,8 +32311,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -634.9, y: -378.5}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -677.5, y: -378.5}
+  m_SizeDelta: {x: 114.8, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1913252635
 MonoBehaviour:
@@ -32371,7 +32399,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -0.014640818, w: -0.04959302}
+  m_margin: {x: 0, y: 0, z: 1.4985847, w: -0.04959302}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -32712,7 +32740,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -813, y: 175}
+  m_AnchoredPosition: {x: -813, y: 198.19}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1920599275
@@ -32762,8 +32790,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 24
+  m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

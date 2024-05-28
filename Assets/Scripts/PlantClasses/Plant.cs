@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Plant;
 
 public class Plant : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class Plant : MonoBehaviour
     static ArrayList plantList;
 
     // Caches
-    Tile cacheTile;
+    public Tile cacheTile;
     SpriteRenderer cacheRenderer;
 
     //>>Visuals<<
@@ -62,6 +63,10 @@ public class Plant : MonoBehaviour
         public bool selfInflicted() { return recievePlant == givePlant; }
         public PlantModifier(float modAm, string reas, Plant recieve, Plant give)
         {
+            if(recieve == null)
+            {
+                print("ERROR- Modifier kept on null object");
+            }
             modifierAmount = modAm;
             reason = reas;
             recievePlant = recieve;
@@ -85,15 +90,13 @@ public class Plant : MonoBehaviour
     // Disconnects plant from tile
     public virtual void disconnect()
     {
+        plantList.Remove(this);
+        updateAllSpecialPlants();
         Instantiate(uponDisconnect, transform.position, Quaternion.identity.normalized);
-        for(int i = 0; i < givenModifierList.Count; i++)
-        {
-            deleteModifier((PlantModifier)givenModifierList[i]);
-        }
-        for(int i = 0; i < recievedModifierList.Count; i++)
-        {
-            deleteModifier((PlantModifier)recievedModifierList[i]);
-        }
+        deleteGivenModifiers();
+        deleteRecievedModifiers();
+        cacheTile.currentState = Tile.TileState.Default;
+        cacheTile.updateMouseBox();
         Destroy(gameObject);
         Destroy(this);
     }
@@ -108,6 +111,7 @@ public class Plant : MonoBehaviour
         initHeight = transform.localScale.y;
         initialized = true;
         plantList.Add(this);
+        updateAllSpecialPlants();
     }
 
     // Creates new plant list upon initiation
@@ -133,6 +137,21 @@ public class Plant : MonoBehaviour
     }
 
     //>>Modifiers<<
+    // Deletions of modifiers
+    public void deleteRecievedModifiers()
+    {
+        while (recievedModifierList.Count > 0)
+        {
+            deleteModifier((PlantModifier)recievedModifierList[0]);
+        }
+    }
+    public void deleteGivenModifiers()
+    {
+        while(givenModifierList.Count > 0)
+        {
+            deleteModifier((PlantModifier)givenModifierList[0]);
+        }
+    }
     // Calculates the nutrition modifier based on tile nutrition and nutritionSusc
     public float newNutritionModifier()
     {
@@ -168,8 +187,8 @@ public class Plant : MonoBehaviour
     // Removes a modifier
     public void deleteModifier(PlantModifier modifier)
     {
-        modifier.givePlant.givenModifierList.Remove(modifier);
         modifier.recievePlant.recievedModifierList.Remove(modifier);
+        modifier.givePlant.givenModifierList.Remove(modifier);
     }
 
     // Produces food
@@ -180,22 +199,25 @@ public class Plant : MonoBehaviour
         GameManager.singleManager.increaseFood(1);
     }
 
-    // Update is called once per frame
-    public virtual void Update()
+    // What actually happens in a update
+    public virtual void updateEffect()
     {
-        if (initialized)
-        {
-            // Handles plant bouncing
-            bounceTime += Time.deltaTime;
-            transform.localScale = new Vector3(transform.localScale.x, initHeight + bounceAmplitude * Mathf.Sin(bounceTime * bounceSpeed));
+        // Handles plant bouncing
+        bounceTime += Time.deltaTime;
+        transform.localScale = new Vector3(transform.localScale.x, initHeight + bounceAmplitude * Mathf.Sin(bounceTime * bounceSpeed));
 
-            // Handles food production
-            timeLeftUntilProduce -= Time.deltaTime;
-            if(timeLeftUntilProduce <= 0)
-            {
-                produceFood();
-            }
+        // Handles food production
+        timeLeftUntilProduce -= Time.deltaTime;
+        if (timeLeftUntilProduce <= 0)
+        {
+            produceFood();
         }
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        updateEffect();
     }
     #endregion
 }
