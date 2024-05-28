@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     // Static accsess
+    public static int highScore;
+    public static int anyScore;
     public static GameManager singleManager;
 
     // Cache
@@ -164,6 +166,12 @@ public class GameManager : MonoBehaviour
     }
     public void onLose()
     {
+        int score = (int)timeSinceStart;
+        anyScore = score;
+        if(anyScore > highScore)
+        {
+            highScore = anyScore;
+        }
         SceneManager.LoadScene("LoseScreen");
     }
 
